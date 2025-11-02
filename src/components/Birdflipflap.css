@@ -4,7 +4,7 @@
   outline: none;
   align-items: center;
   font-family: 'Arial', sans-serif;
-  background-color: #f0f8ff;
+  background-color: #212121;
   min-height: 100vh;
   padding: 20px;
   user-select: none;
@@ -13,7 +13,6 @@
   /* Your existing styles */
   user-select: none;
   -webkit-user-select: none;
-  
   /* Prevent any focus behavior */
   outline: none;
   -webkit-tap-highlight-color: transparent;
@@ -33,19 +32,32 @@ h1 {
   position: relative;
   width: 400px;
   height: 500px;
-  background: linear-gradient(to bottom, #87CEEB, #E0F7FF);
-  border: 3px solid #2c3e50;
+  background: #212121;
   border-radius: 10px;
   overflow: hidden;
   cursor: pointer;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-  outline: none; /* Remove focus outline */
-  user-select: none; /* Prevent text selection */
-  -webkit-user-select: none; /* Safari */
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none; /* IE/Edge */
+  
+  border: 6px dotted #3498db;
+  animation: dotMove 200ms linear infinite;
 }
 
+@keyframes dotMove {
+  0% {
+    border-color: #3498db transparent transparent transparent;
+  }
+  25% {
+    border-color: transparent #4013a8 transparent transparent;
+  }
+  50% {
+    border-color: transparent transparent #d88211 transparent;
+  }
+  75% {
+    border-color: transparent transparent transparent #87b322;
+  }
+  100% {
+    border-color: #088512 transparent transparent transparent;
+  }
+}
 /* Remove focus outline for all browsers */
 .game-area:focus {
   outline: none !important;
@@ -91,13 +103,35 @@ h1 {
 
 .pipe {
   position: absolute;
-  width:  100px;
-  /* background-color: #2ecc71; */
+  width: 100px;
   z-index: 5;
-  box-shadow: 0 0 10px rgba(121, 118, 118, 0.2);
+  
+  /* Electric border */
+  border: 2px solid;
+  border-image: 
+    linear-gradient(
+      45deg,
+      #ff0000, #ff0000, 
+      #ffff00, #ffff00,
+      #00ff00, #00ff00,
+      #00ffff, #00ffff,
+      #0000ff, #0000ff,
+      #ff00ff, #ff00ff,
+      #ff0000
+    ) 1;
+  animation: electricFlicker 0.3s infinite;
 }
 
-
+@keyframes electricFlicker {
+  0%, 100% {
+    opacity: 1;
+    filter: drop-shadow(0 0 5px #00ffff);
+  }
+  50% {
+    opacity: 0.8;
+    filter: drop-shadow(0 0 10px #ff00ff);
+  }
+}
 .message {
   position: absolute;
   top: 50%;
