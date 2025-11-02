@@ -91,7 +91,7 @@ const BirdFlipFlap = () => {
       <div 
         className="game-area"
         onClick={handleStartGame}
-        tabIndex="0"
+        // tabIndex="0"
       >
         {/* Bird */}
         <div 

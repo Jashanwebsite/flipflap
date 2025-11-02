@@ -1,6 +1,7 @@
 .game-container {
   display: flex;
   flex-direction: column;
+  outline: none;
   align-items: center;
   font-family: 'Arial', sans-serif;
   background-color: #f0f8ff;
@@ -8,7 +9,20 @@
   padding: 20px;
   user-select: none;
 }
+.game-area {
+  /* Your existing styles */
+  user-select: none;
+  -webkit-user-select: none;
+  
+  /* Prevent any focus behavior */
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
 
+/* Ensure no focus styles can appear */
+*:focus {
+  outline: none !important;
+}
 h1 {
   color: #2c3e50;
   margin-bottom: 20px;
@@ -25,9 +39,18 @@ h1 {
   overflow: hidden;
   cursor: pointer;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-  outline: none;
+  outline: none; /* Remove focus outline */
+  user-select: none; /* Prevent text selection */
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE/Edge */
 }
 
+/* Remove focus outline for all browsers */
+.game-area:focus {
+  outline: none !important;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Keep original shadow */
+}
 .bird {
   position: absolute;
   width: 40px;
@@ -74,23 +97,6 @@ h1 {
   box-shadow: 0 0 10px rgba(121, 118, 118, 0.2);
 }
 
-.pipe:before {
-  content: '';
-  position: absolute;
-  width: 70px;
-  height: 30px;
-  /* background-color: #27ae60; */
-  left: -5px;
-  border-radius: 5px;
-}
-
-.top-pipe:before {
-  bottom: 0;
-}
-
-.bottom-pipe:before {
-  top: 0;
-}
 
 .message {
   position: absolute;

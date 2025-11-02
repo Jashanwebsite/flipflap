@@ -90,7 +90,7 @@ const gameSlice = createSlice({
           const pipeRight = pipe.x + 60;
           const pipeTopTop = 0;
           const pipeBottomTop = pipe.topHeight;
-          const pipeTopBottom = 600 - pipe.bottomHeight;
+          const pipeTopBottom = 500 - pipe.bottomHeight;
           const pipeBottomBottom = 600;
           
           // Check collision with top pipe
