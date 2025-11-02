@@ -23,7 +23,8 @@
   outline: none !important;
 }
 h1 {
-  color: #2c3e50;
+  color: #d6d7d8;
+  font-size: 50px;
   margin-bottom: 20px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -107,6 +108,9 @@ h1 {
   z-index: 5;
   
   /* Electric border */
+  
+}
+.pipe1{
   border: 2px solid;
   border-image: 
     linear-gradient(
@@ -121,7 +125,6 @@ h1 {
     ) 1;
   animation: electricFlicker 0.3s infinite;
 }
-
 @keyframes electricFlicker {
   0%, 100% {
     opacity: 1;
@@ -132,12 +135,101 @@ h1 {
     filter: drop-shadow(0 0 10px #ff00ff);
   }
 }
+.pipe2{
+    /* Animated gradient border */
+  border: 2px solid;
+  border-image: linear-gradient(45deg, #ff0000, #00ff00, #0000ff, #ff0000) 1;
+  animation: borderMove 2s linear infinite;
+}
+@keyframes borderMove {
+  0% {
+    border-image-source: linear-gradient(45deg, #ff0000, #00ff00, #0000ff, #ff0000);
+  }
+  25% {
+    border-image-source: linear-gradient(45deg, #00ff00, #0000ff, #ff0000, #00ff00);
+  }
+  50% {
+    border-image-source: linear-gradient(45deg, #0000ff, #ff0000, #00ff00, #0000ff);
+  }
+  75% {
+    border-image-source: linear-gradient(45deg, #ff0000, #00ff00, #0000ff, #ff0000);
+  }
+  100% {
+    border-image-source: linear-gradient(45deg, #00ff00, #0000ff, #ff0000, #00ff00);
+  }
+}
+.pipe3{
+   border: 2px solid transparent;
+  background: 
+    linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent) 
+    border-box;
+  background-size: 200% 100%;
+  animation: lightSweep 1.5s linear infinite;
+  box-shadow: 0 0 10px rgba(255,255,255,0.5);
+}
+@keyframes lightSweep {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+.pipe4{
+   border: 3px solid #00ffff;
+  animation: pulseGlow 1.5s ease-in-out infinite alternate;
+  box-shadow: 
+    0 0 5px #00ffff,
+    0 0 10px #00ffff,
+    0 0 15px #00ffff,
+    inset 0 0 5px #00ffff;
+}
+@keyframes pulseGlow {
+  0% {
+    border-color: #00ffff;
+    box-shadow: 
+      0 0 5px #00ffff,
+      0 0 10px #00ffff,
+      0 0 15px #00ffff,
+      inset 0 0 5px #00ffff;
+  }
+  100% {
+    border-color: #ff00ff;
+    box-shadow: 
+      0 0 10px #ff00ff,
+      0 0 20px #ff00ff,
+      0 0 30px #ff00ff,
+      inset 0 0 10px #ff00ff;
+  }
+}
+.pipe5{
+   border: 2px solid transparent;
+  background: 
+    linear-gradient(90deg, 
+      transparent 0%, 
+      #ff0000 20%, 
+      #ffff00 50%, 
+      #ff0000 80%, 
+      transparent 100%) 
+    border-box;
+  background-size: 200% 100%;
+  animation: laserScan 1s linear infinite;
+}
+
+@keyframes laserScan {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
 .message {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: rgba(255, 255, 255, 0.95);
+  background-color: rgba(0, 0, 0, 0.95);
   padding: 30px;
   border-radius: 10px;
   text-align: center;
@@ -149,12 +241,12 @@ h1 {
 
 .message h2 {
   margin-top: 0;
-  color: #2c3e50;
+  color: #f8f7f7;
 }
 
 .message button {
   background-color: #3498db;
-  color: white;
+  color: rgb(255, 255, 255);
   border: none;
   padding: 12px 24px;
   font-size: 16px;
@@ -176,18 +268,18 @@ h1 {
   right: 20px;
   font-size: 24px;
   font-weight: bold;
-  color: #2c3e50;
+  color: #ffffff;
   z-index: 15;
   background-color: rgba(255, 255, 255, 0.8);
   padding: 8px 16px;
   border-radius: 20px;
-  border: 2px solid #2c3e50;
+  border: 2px solid #ffffff;
 }
 
 .instructions {
   margin-top: 20px;
   text-align: center;
-  color: #2c3e50;
+  color: #ffffff;
   font-size: 16px;
 }
 

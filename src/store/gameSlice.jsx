@@ -39,7 +39,7 @@ const gameSlice = createSlice({
     updateBird: (state) => {
       if (state.gameStarted && !state.gameOver) {
         state.birdPosition += state.birdVelocity;
-        state.birdVelocity += 0.2;
+        state.birdVelocity += 0.1;
         
         // Check boundaries
         if (state.birdPosition <= 0 || state.birdPosition >= 550) {
@@ -53,11 +53,11 @@ const gameSlice = createSlice({
     },
     spawnPipe: (state, action) => {
       if (state.gameStarted && !state.gameOver) {
-        const pipeHeight = Math.floor(Math.random() * 100) + 100;
+        const pipeHeight = Math.floor(Math.random() * 100) + 70;
         state.pipes.push({
-          x: 600,
+          x: 500,
           topHeight: pipeHeight,
-          bottomHeight: 500 - pipeHeight - 150,
+          bottomHeight: 500 - pipeHeight - 200,
           passed: false,
           id: Date.now() + Math.random()
         });
@@ -69,7 +69,7 @@ const gameSlice = createSlice({
         // Move pipes
         state.pipes = state.pipes.map(pipe => ({
           ...pipe,
-          x: pipe.x - 3
+          x: pipe.x - 2
         })).filter(pipe => pipe.x > -60);
         
         // Check for score and collisions

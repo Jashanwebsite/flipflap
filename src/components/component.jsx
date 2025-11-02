@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import indernormal from '../components/normalpicinder.png'
 import { 
@@ -11,6 +11,8 @@ import {
 import './Birdflipflap.css';
 
 const BirdFlipFlap = () => {
+  const [prevTopClass, setPrevTopClass] = useState("pipe");
+  const [prevBottomClass, setPrevBottomClass] = useState("pipe");
   const dispatch = useDispatch();
   const {
     gameStarted,
@@ -23,6 +25,7 @@ const BirdFlipFlap = () => {
   
   const gameLoopRef = useRef(null);
   const lastTimeRef = useRef(0);
+  const lastScoreChangeRef = useRef(0);
 
   // Handle game start
   const handleStartGame = () => {
@@ -84,6 +87,32 @@ const BirdFlipFlap = () => {
     };
   }, [gameStarted, gameOver, dispatch]);
 
+  // Change pipe class every 5 points
+  useEffect(() => {
+    if (score > 0 && score % 3 === 0 && score !== lastScoreChangeRef.current) {
+      const newTopClass = "pipe" + (Math.floor(Math.random() * 5) + 1);
+      const newBottomClass = "pipe" + (Math.floor(Math.random() * 5) + 1);
+      
+      // Update top pipe class
+      const topPipe = document.getElementById('pipetop');
+      if (topPipe) {
+        topPipe.classList.remove(prevTopClass);
+        topPipe.classList.add(newTopClass);
+        setPrevTopClass(newTopClass);
+      }
+
+      // Update bottom pipe class
+      const bottomPipe = document.getElementById('pipebot');
+      if (bottomPipe) {
+        bottomPipe.classList.remove(prevBottomClass);
+        bottomPipe.classList.add(newBottomClass);
+        setPrevBottomClass(newBottomClass);
+      }
+      
+      lastScoreChangeRef.current = score;
+    }
+  }, [score, prevTopClass, prevBottomClass]);
+
   return (
     <div className="game-container">
       <h1>Bird Flip Flap</h1>
@@ -91,7 +120,6 @@ const BirdFlipFlap = () => {
       <div 
         className="game-area"
         onClick={handleStartGame}
-        // tabIndex="0"
       >
         {/* Bird */}
         <div 
@@ -103,22 +131,26 @@ const BirdFlipFlap = () => {
         {pipes.map((pipe) => (
           <React.Fragment key={pipe.id}>
             <img 
-              className="pipe top-pipe"
+              id='pipetop'
+              className={`pipe top-pipe ${prevTopClass}`}
               src={indernormal}
               style={{
                 left: `${pipe.x}px`,
                 height: `${pipe.topHeight}px`
               }}
-            ></img>
+              alt="Top pipe"
+            />
             <img
+              id='pipebot'
               src={indernormal}
-              className="pipe bottom-pipe"
+              className={`pipe bottom-pipe ${prevBottomClass}`}
               style={{
                 left: `${pipe.x}px`,
                 height: `${pipe.bottomHeight}px`,
                 bottom: '0'
               }}
-            ></img>
+              alt="Bottom pipe"
+            />
           </React.Fragment>
         ))}
         
