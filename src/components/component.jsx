@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import indernormal from '../components/normalpicinder.png'
+import indernormal from '../components/images-removebg-preview.png'
 import { 
   startGame, 
   jump, 
@@ -9,6 +9,9 @@ import {
   updatePipes 
 } from '../store/gameSlice';
 import './Birdflipflap.css';
+
+// Import your game over sound
+import gameOverSound from '../components/akali.mp3';
 
 const BirdFlipFlap = () => {
   const [prevTopClass, setPrevTopClass] = useState("pipe");
@@ -26,6 +29,38 @@ const BirdFlipFlap = () => {
   const gameLoopRef = useRef(null);
   const lastTimeRef = useRef(0);
   const lastScoreChangeRef = useRef(0);
+  const audioRef = useRef(null);
+  const hasPlayedGameOverSound = useRef(false);
+
+  // Initialize audio
+  useEffect(() => {
+    audioRef.current = new Audio(gameOverSound);
+    audioRef.current.volume = 0.5; // Adjust volume as needed (0.0 to 1.0)
+    
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
+    };
+  }, []);
+
+  // Play game over sound when game over state changes
+  useEffect(() => {
+    if (gameOver && !hasPlayedGameOverSound.current) {
+      // Reset the audio to start from beginning
+      if (audioRef.current) {
+        audioRef.current.currentTime = 0;
+        audioRef.current.play().catch(error => {
+          console.log('Audio play failed:', error);
+        });
+      }
+      hasPlayedGameOverSound.current = true;
+    } else if (!gameOver) {
+      // Reset the flag when starting a new game
+      hasPlayedGameOverSound.current = false;
+    }
+  }, [gameOver]);
 
   // Handle game start
   const handleStartGame = () => {
